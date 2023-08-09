@@ -23,4 +23,10 @@ Sample of Stanford University's approach to "Design Thinking" with phases: Empat
 
 Inspired from [SKRecipes](https://github.com/johnmaeda/SK-Recipes/tree/main)
 
+## Documentation/Further reading
+
+1. [Semantic Kernel Official Docs](https://learn.microsoft.com/en-us/semantic-kernel/overview/)
+2. [Semantic Kernel Github Repo](https://github.com/microsoft/semantic-kernel)
+3. [In Depth Tutorials in Python & C#](https://learn.microsoft.com/en-us/semantic-kernel/get-started/tutorials)
+4. [Sample apps (not in Java yet)](https://learn.microsoft.com/en-us/semantic-kernel/samples-and-solutions/)
 
