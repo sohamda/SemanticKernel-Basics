@@ -6,6 +6,7 @@ Code examples of Semantic Kernel with Java SDK
    2. The samples are based on the checkout from 8-Aug-2023
 2. Create [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) resource in Azure portal and deploy 'gpt-35-turbo' and 'text-embedding-ada-002' models there.
 3. Optionally, create [Azure Congnitive Search](https://learn.microsoft.com/en-us/azure/search/search-create-service-portal) resource, if you want to run the cognitive search sample (```Example06_SKwithCognitiveSearch.class```).
+4. Rename ````src/main/resources/conf.properties.example```` to ````src/main/resources/conf.properties```` and update it with the details from Step #2 and #3. 
 
 ## Samples
 1. ````Example01_InlineFunction.class```` > Demonstrates, how to initialize a Kernel and use an Inline function with Azure Open AI(AOAI).
