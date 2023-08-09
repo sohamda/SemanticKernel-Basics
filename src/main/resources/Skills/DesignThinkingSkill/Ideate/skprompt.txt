@@ -1,0 +1,22 @@
+A set of problems have been identified with estimated resources required to address them:
+---
+{{$input}}
+---
+In a JSON format there are two objects labeled "Lower-hanging fruit" and "Higher-hanging fruit".
+The "Lower-hanging fruit" object should have an array of 10 ideas for products, programs, or features that should be implemented for cases where any resource requirements are MEDIUM or LOW.
+The "Higher-hanging fruit" object should have an array of 10 ideas for products, programs, or features that should be implemented for cases where any resource requirements are HIGH.
+The format should read:
+[
+    { "idea": "Lower-hanging fruit",
+        [
+            { "sentiment": "expression of a sentiment", "summary": "concise summary of reason for this sentiment"},
+            { "sentiment": "expression of a sentiment", "summary": "concise summary of reason for this sentiment"}
+        ]
+    },
+    { "idea": "Higher-hanging fruit",
+        [
+            { "sentiment": "expression of a sentiment", "summary": "concise summary of reason for this sentiment"},
+            { "sentiment": "expression of a sentiment", "summary": "concise summary of reason for this sentiment"}
+        ]
+    }
+]
