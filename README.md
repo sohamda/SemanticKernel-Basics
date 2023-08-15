@@ -1,6 +1,8 @@
 # SemanticKernel-Basics
 Code examples of Semantic Kernel with Java SDK
 
+#### Detailed Blog is in [here](https://devblogs.microsoft.com/semantic-kernel/ai-tooling-for-java-developers-with-sk/)
+
 ## Pre reqs to run the samples
 1. Check out [Semantic Kernel Java Branch](https://github.com/microsoft/semantic-kernel/tree/experimental-java/java) and run ```mvn install```.
    2. The samples are based on the checkout from 8-Aug-2023
