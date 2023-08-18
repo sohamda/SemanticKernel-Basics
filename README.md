@@ -17,6 +17,7 @@ Code examples of Semantic Kernel with Java SDK
 4. ````Example04_SkillsPipeline.class```` > Demonstrates, how to use a Skill and Function in a pipeline or chain, passing output from one function to another as input.
 5. ````Example05_SKwithMemory.class```` > Demonstrates, how to use a volatile memory (local simulation of a vector DB) with AOAI.
 6. ````Example06_SKwithCognitiveSearch.class```` > Demonstrates, how to use a Azure Cognitive Search with AOAI.
+7. ````Example08_SequentialPlanner.class```` > Demonstrates, how to use a  bunch of Skills together and instruct the LLM to pick intelligently a or combination of Skills depending on the input provided.
 
 ## Bonus Sample
 ````Example07_DesignThinking.class````

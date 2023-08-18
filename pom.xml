@@ -38,12 +38,12 @@
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-plugin-core</artifactId>
+            <artifactId>semantickernel-connectors-memory-azurecognitivesearch</artifactId>
             <version>${version.semantic-kernel}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-connectors-memory-azurecognitivesearch</artifactId>
+            <artifactId>semantickernel-plugin-core</artifactId>
             <version>${version.semantic-kernel}</version>
         </dependency>
         <dependency>
