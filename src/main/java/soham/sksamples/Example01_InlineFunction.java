@@ -2,7 +2,7 @@ package soham.sksamples;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.microsoft.semantickernel.Kernel;
-import com.microsoft.semantickernel.builders.SKBuilders;
+import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.orchestration.SKContext;
 import com.microsoft.semantickernel.semanticfunctions.PromptTemplateConfig;
@@ -25,7 +25,10 @@ public class Example01_InlineFunction {
             OpenAIAsyncClient client = openAIAsyncClient();
 
             log.debug("== Create an instance of the TextCompletion service and register it for the Kernel configuration ==");
-            TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, settings().getDeploymentName());
+            TextCompletion textCompletion = SKBuilders.chatCompletion()
+                    .withOpenAIClient(client)
+                    .withModelId(settings().getDeploymentName())
+                    .build();
 
             log.debug("== Instantiates the Kernel ==");
             Kernel kernel = SKBuilders.kernel().withDefaultAIService(textCompletion).build();
@@ -36,14 +39,15 @@ public class Example01_InlineFunction {
                 Summarize the content above in less than 140 characters.
                 """;
             CompletionSKFunction summarizeFunction = SKBuilders
-                    .completionFunctions(kernel)
-                    .createFunction(
-                            semanticFunctionInline,
+                    .completionFunctions()
+                    .withKernel(kernel)
+                    .withPromptTemplate(semanticFunctionInline)
+                    .withCompletionConfig(
                             new PromptTemplateConfig.CompletionConfigBuilder()
                                     .maxTokens(100)
                                     .temperature(0.4)
                                     .topP(1)
-                                    .build());
+                                    .build()).build();
 
             log.debug("== Run the Kernel ==");
             Mono<SKContext> result = summarizeFunction.invokeAsync(TextToSummarize);

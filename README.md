@@ -1,11 +1,11 @@
 # SemanticKernel-Basics
 Code examples of Semantic Kernel with Java SDK
 
-#### Detailed Blog is in [here](https://devblogs.microsoft.com/semantic-kernel/ai-tooling-for-java-developers-with-sk/)
+#### Detailed Blog are in [here](https://devblogs.microsoft.com/semantic-kernel/ai-tooling-for-java-developers-with-sk/) and [here](https://devblogs.microsoft.com/semantic-kernel/using-planners-in-the-sk-java-kernel/)
 
 ## Pre reqs to run the samples
 1. Check out [Semantic Kernel Java Branch](https://github.com/microsoft/semantic-kernel/tree/experimental-java/java) and run ```mvn install```.
-   2. The samples are based on the checkout from 8-Aug-2023
+   2. The samples are based on the checkout from 12-Sep-2023
 2. Create [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) resource in Azure portal and deploy 'gpt-35-turbo' and 'text-embedding-ada-002' models there.
 3. Optionally, create [Azure Congnitive Search](https://learn.microsoft.com/en-us/azure/search/search-create-service-portal) resource, if you want to run the cognitive search sample (```Example06_SKwithCognitiveSearch.class```).
 4. Rename ````src/main/resources/conf.properties.example```` to ````src/main/resources/conf.properties```` and update it with the details from Step #2 and #3. 

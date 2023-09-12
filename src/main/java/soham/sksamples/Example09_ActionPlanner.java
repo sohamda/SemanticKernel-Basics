@@ -6,10 +6,8 @@ import com.microsoft.semantickernel.planner.actionplanner.ActionPlanner;
 import com.microsoft.semantickernel.planner.actionplanner.Plan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Mono;
 
-import static soham.sksamples.util.Constants.CallTranscript;
-import static soham.sksamples.util.Constants.TextToSummarize;
+import static soham.sksamples.util.Constants.*;
 import static soham.sksamples.util.KernelUtils.kernel;
 
 public class Example09_ActionPlanner {
@@ -42,39 +40,36 @@ public class Example09_ActionPlanner {
 
     private static void designThinking(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        CallTranscript + """
+        String goal = CallTranscript + """
                     =====
-                    design a solution for the above problem.
-                    =====""");
-        printResult(result);
+                    apply Design Thinking to above call transcript.
+                    =====""";
+        Plan result = planner.createPlanAsync(goal).block();
+        printResult(result, goal);
     }
 
     private static void rewriteInAStyle(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        TextToSummarize + """
+        String goal = TextToSummarize + """
                     =====
                     rewrite the above content in Yoda from Starwars style.
-                    =====""");
-        printResult(result);
+                    =====""";
+        Plan result = planner.createPlanAsync(goal).block();
+        printResult(result, goal);
     }
 
     private static void translate(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        TextToSummarize + """
+        String goal = TextToSummarize + """
                         =====
                         translate it to Dutch.
-                        =====""");
-        printResult(result);
+                        =====""";
+        Plan result = planner.createPlanAsync(goal).block();
+        printResult(result, goal);
     }
 
-    private static void printResult(Mono<Plan> result) {
-        log.debug("== Result ==");
-        log.debug(result.block().invokeAsync().block().getResult());
+    private static void printResult(Plan result, String goal) {
+        log.debug("== Result ==" + result.getName());
+        log.debug(result.invokeAsync(goal).block().getResult());
     }
 }

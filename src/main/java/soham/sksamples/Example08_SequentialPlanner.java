@@ -4,9 +4,12 @@ import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.planner.actionplanner.Plan;
 import com.microsoft.semantickernel.planner.sequentialplanner.SequentialPlanner;
+import com.microsoft.semantickernel.planner.sequentialplanner.SequentialPlannerRequestSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
+
+import java.util.Set;
 
 import static soham.sksamples.util.Constants.*;
 import static soham.sksamples.util.KernelUtils.kernel;
@@ -26,9 +29,16 @@ public class Example08_SequentialPlanner {
             kernel.importSkillFromDirectory("DesignThinkingSkill", "src/main/resources/Skills", "DesignThinkingSkill");
 
             log.debug("== Create a Planner using the kernel ==");
-            SequentialPlanner planner = new SequentialPlanner(kernel, null, null);
+            SequentialPlanner planner = new SequentialPlanner(kernel, new SequentialPlannerRequestSettings(
+                    null,
+                    100,
+                    Set.of(),
+                    Set.of(),
+                    Set.of(),
+                    1024
+            ), null);
 
-            log.debug("== Example 1 : use Summarizer and Translator skills ==");
+           log.debug("== Example 1 : use Summarizer and Translator skills ==");
             summarizeAndTranslate(planner);
             log.debug("== Example 2 : use Rewrite skill ==");
             rewriteInAStyle(planner);
@@ -45,7 +55,7 @@ public class Example08_SequentialPlanner {
                 planner.createPlanAsync(
                         CallTranscript + """
                     =====
-                    design a solution for the above problem.
+                    apply Design Thinking to above call transcript.
                     =====""");
         printResult(result);
     }
