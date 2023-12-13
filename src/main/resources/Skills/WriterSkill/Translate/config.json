@@ -11,5 +11,19 @@
     "stop_sequences": [
       "[done]"
     ]
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "input",
+        "description": "Text to translate",
+        "defaultValue": ""
+      },
+      {
+        "name": "language",
+        "description": "language of translation",
+        "defaultValue": ""
+      }
+    ]
   }
 }

@@ -9,6 +9,8 @@ import com.microsoft.semantickernel.skilldefinition.ReadOnlyFunctionCollection;
 import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 import static soham.sksamples.util.Constants.ChatTranscript;
 import static soham.sksamples.util.KernelUtils.*;
 
@@ -31,7 +33,7 @@ public class Example03_SummarizerAsPlugin {
                     .invokeAsync(ChatTranscript);
             log.debug("== Result ==");
             log.debug(summary.block().getResult());
-        } catch (ConfigurationException e) {
+        } catch (ConfigurationException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }

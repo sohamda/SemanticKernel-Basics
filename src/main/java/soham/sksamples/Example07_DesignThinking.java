@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 import static soham.sksamples.util.Constants.CallTranscript;
 import static soham.sksamples.util.KernelUtils.kernel;
 
@@ -33,7 +35,7 @@ public class Example07_DesignThinking {
             log.debug("== Result ==");
             log.debug(result.block().getResult());
 
-        } catch (ConfigurationException e) {
+        } catch (ConfigurationException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }

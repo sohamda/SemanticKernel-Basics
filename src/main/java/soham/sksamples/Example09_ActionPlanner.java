@@ -7,6 +7,8 @@ import com.microsoft.semantickernel.planner.actionplanner.Plan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 import static soham.sksamples.util.Constants.*;
 import static soham.sksamples.util.KernelUtils.kernel;
 
@@ -28,48 +30,39 @@ public class Example09_ActionPlanner {
             ActionPlanner planner = new ActionPlanner(kernel, null);
 
             log.debug("== Example 1 : use Summarizer and Translator skills ==");
-            translate(planner);
+          //  translate(planner);
             log.debug("== Example 2 : use Rewrite skill ==");
             rewriteInAStyle(planner);
             log.debug("== Example 3 : use DesignThinking skill and compose an email ==");
-            designThinking(planner);
-        } catch (ConfigurationException e) {
+          //  designThinking(planner);
+        } catch (ConfigurationException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }
 
     private static void designThinking(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        String goal = CallTranscript + """
-                    =====
-                    apply Design Thinking to above call transcript.
-                    =====""";
+        String goal = "apply Design Thinking to above call transcript.";
         Plan result = planner.createPlanAsync(goal).block();
-        printResult(result, goal);
+        printResult(result, CallTranscript);
     }
 
     private static void rewriteInAStyle(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        String goal = TextToSummarize + """
-                    =====
-                    rewrite the above content in Yoda from Starwars style.
-                    =====""";
+        String goal = "rewrite the above content in Yoda from Starwars style.";
         Plan result = planner.createPlanAsync(goal).block();
-        printResult(result, goal);
+        printResult(result, TextToSummarize);
     }
 
     private static void translate(ActionPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        String goal = TextToSummarize + """
-                        =====
-                        translate it to Dutch.
-                        =====""";
+        String goal = "translate it to Dutch.";
         Plan result = planner.createPlanAsync(goal).block();
-        printResult(result, goal);
+        printResult(result, TextToSummarize);
     }
 
-    private static void printResult(Plan result, String goal) {
+    private static void printResult(Plan result, String input) {
         log.debug("== Result ==" + result.getName());
-        log.debug(result.invokeAsync(goal).block().getResult());
+        log.debug(result.invokeAsync(input).block().getResult());
     }
 }

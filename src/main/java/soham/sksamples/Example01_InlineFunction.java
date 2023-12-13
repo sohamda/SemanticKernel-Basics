@@ -6,14 +6,16 @@ import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.orchestration.SKContext;
 import com.microsoft.semantickernel.semanticfunctions.PromptTemplateConfig;
+import com.microsoft.semantickernel.textcompletion.CompletionRequestSettings;
 import com.microsoft.semantickernel.textcompletion.CompletionSKFunction;
 import com.microsoft.semantickernel.textcompletion.TextCompletion;
 import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 import static soham.sksamples.util.Constants.TextToSummarize;
-import static soham.sksamples.util.KernelUtils.openAIAsyncClient;
-import static soham.sksamples.util.KernelUtils.settings;
+import static soham.sksamples.util.KernelUtils.*;
 
 public class Example01_InlineFunction {
 
@@ -27,7 +29,7 @@ public class Example01_InlineFunction {
             log.debug("== Create an instance of the TextCompletion service and register it for the Kernel configuration ==");
             TextCompletion textCompletion = SKBuilders.chatCompletion()
                     .withOpenAIClient(client)
-                    .withModelId(settings().getDeploymentName())
+                    .withModelId(getProperty("client.azureopenai.deploymentname"))
                     .build();
 
             log.debug("== Instantiates the Kernel ==");
@@ -42,12 +44,8 @@ public class Example01_InlineFunction {
                     .completionFunctions()
                     .withKernel(kernel)
                     .withPromptTemplate(semanticFunctionInline)
-                    .withCompletionConfig(
-                            new PromptTemplateConfig.CompletionConfigBuilder()
-                                    .maxTokens(100)
-                                    .temperature(0.4)
-                                    .topP(1)
-                                    .build()).build();
+                    .withRequestSettings(
+                            new PromptTemplateConfig(new CompletionRequestSettings()).getCompletionRequestSettings()).build();
 
             log.debug("== Run the Kernel ==");
             Mono<SKContext> result = summarizeFunction.invokeAsync(TextToSummarize);
@@ -55,7 +53,7 @@ public class Example01_InlineFunction {
             log.debug("== Result ==");
             log.debug(result.block().getResult());
 
-        } catch (ConfigurationException | NullPointerException e) {
+        } catch (ConfigurationException | NullPointerException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }

@@ -9,6 +9,8 @@ import com.microsoft.semantickernel.textcompletion.CompletionSKFunction;
 import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
+
 import static soham.sksamples.util.Constants.TextToSummarize;
 import static soham.sksamples.util.KernelUtils.*;
 
@@ -33,7 +35,7 @@ public class Example02_SummarizerAsPrompt {
             log.debug("== Result ==");
             log.debug(result.block().getResult());
 
-        } catch (ConfigurationException | NullPointerException e) {
+        } catch (ConfigurationException | NullPointerException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }

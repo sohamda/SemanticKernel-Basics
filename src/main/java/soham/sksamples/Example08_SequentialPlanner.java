@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.util.Set;
 
 import static soham.sksamples.util.Constants.*;
@@ -30,60 +31,49 @@ public class Example08_SequentialPlanner {
 
             log.debug("== Create a Planner using the kernel ==");
             SequentialPlanner planner = new SequentialPlanner(kernel, new SequentialPlannerRequestSettings(
-                    null,
+                    1.0f,
                     100,
                     Set.of(),
                     Set.of(),
                     Set.of(),
-                    1024
+                    1024,
+                    true
             ), null);
 
            log.debug("== Example 1 : use Summarizer and Translator skills ==");
-            summarizeAndTranslate(planner);
+           summarizeAndTranslate(planner);
             log.debug("== Example 2 : use Rewrite skill ==");
-            rewriteInAStyle(planner);
+           // rewriteInAStyle(planner);
             log.debug("== Example 3 : use DesignThinking skill and compose an email ==");
-            designThinking(planner);
-        } catch (ConfigurationException e) {
+            //designThinking(planner);
+        } catch (ConfigurationException | IOException e) {
             log.error("Problem in paradise", e);
         }
     }
 
     private static void designThinking(SequentialPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        CallTranscript + """
-                    =====
-                    apply Design Thinking to above call transcript.
-                    =====""");
-        printResult(result);
+        Mono<Plan> plan =
+                planner.createPlanAsync("apply Design Thinking to above call transcript.");
+        printResult(plan, CallTranscript);
     }
 
     private static void rewriteInAStyle(SequentialPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        TextToSummarize + """
-                    =====
-                    rewrite the above content in Yoda from Starwars style.
-                    =====""");
-        printResult(result);
+        Mono<Plan> plan =
+                planner.createPlanAsync("rewrite the above content in Yoda from Starwars style");
+        printResult(plan, TextToSummarize);
     }
 
     private static void summarizeAndTranslate(SequentialPlanner planner) {
         log.debug("== Run kernel with Planner ==");
-        Mono<Plan> result =
-                planner.createPlanAsync(
-                        TextToSummarize + """
-                        =====
-                        summarize the above content and then translate it to Dutch.
-                        =====""");
-        printResult(result);
+        Mono<Plan> plan =
+                planner.createPlanAsync("summarize the content and then translate it to Dutch.");
+        printResult(plan, TextToSummarize);
     }
 
-    private static void printResult(Mono<Plan> result) {
+    private static void printResult(Mono<Plan> plan, String input) {
         log.debug("== Result ==");
-        log.debug(result.block().invokeAsync().block().getResult());
+        log.debug(plan.block().invokeAsync(input).block().getResult());
     }
 }

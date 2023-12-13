@@ -1,14 +1,12 @@
 package soham.sksamples.util;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.azure.ai.openai.OpenAIClientBuilder;
-import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.ai.embeddings.EmbeddingGeneration;
 import com.microsoft.semantickernel.SKBuilders;
-import com.microsoft.semantickernel.connectors.ai.openai.util.AzureOpenAISettings;
-import com.microsoft.semantickernel.connectors.ai.openai.util.SettingsMap;
-import com.microsoft.semantickernel.connectors.memory.azurecognitivesearch.AzureCognitiveSearchMemory;
+import com.microsoft.semantickernel.connectors.ai.openai.util.ClientType;
+import com.microsoft.semantickernel.connectors.ai.openai.util.OpenAIClientProvider;
+import com.microsoft.semantickernel.connectors.memory.azurecognitivesearch.AzureCognitiveSearchMemoryStore;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.memory.MemoryQueryResult;
 import com.microsoft.semantickernel.memory.VolatileMemoryStore;
@@ -25,35 +23,32 @@ import java.util.Properties;
 public class KernelUtils {
 
     public static OpenAIAsyncClient openAIAsyncClient() throws ConfigurationException {
-        // Create an Azure OpenAI client
-        AzureOpenAISettings settings = settings();
-        return new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(new AzureKeyCredential(settings.getKey())).buildAsyncClient();
-    }
-    public static AzureOpenAISettings settings() throws ConfigurationException {
-        return new AzureOpenAISettings(SettingsMap.
-                getWithAdditional(List.of(
-                        new File("src/main/resources/conf.properties"))));
+        return OpenAIClientProvider.getWithAdditional(List.of(
+                        new File("src/main/resources/conf.properties")), ClientType.AZURE_OPEN_AI);
 
     }
-
-    public static Kernel kernel() throws ConfigurationException {
+    public static Kernel kernel() throws ConfigurationException, IOException {
         OpenAIAsyncClient client = openAIAsyncClient();
         TextCompletion textCompletion = SKBuilders.chatCompletion()
                                 .withOpenAIClient(client)
-                                .withModelId(settings().getDeploymentName())
+                                .withModelId(getProperty("client.azureopenai.deploymentname"))
                                 .build();
         return SKBuilders.kernel().withDefaultAIService(textCompletion).build();
     }
 
-    public static AzureCognitiveSearchMemory azureCognitiveSearchMemory() throws IOException {
-        AzureCognitiveSearchMemory azureCognitiveSearchMemory;
+    public static AzureCognitiveSearchMemoryStore azureCognitiveSearchMemory() throws IOException {
+        AzureCognitiveSearchMemoryStore azureCognitiveSearchMemory;
+        azureCognitiveSearchMemory = new AzureCognitiveSearchMemoryStore(getProperty("azure.congnitive.search.endpoint"),
+                getProperty("azure.congnitive.search.key"));
+
+        return azureCognitiveSearchMemory;
+    }
+
+    public static String getProperty(String key) throws IOException {
         Properties properties = new Properties();
         java.net.URL url = ClassLoader.getSystemResource("conf.properties");
         properties.load(url.openStream());
-        azureCognitiveSearchMemory = new AzureCognitiveSearchMemory(properties.getProperty("azure.congnitive.search.endpoint"),
-                properties.getProperty("azure.congnitive.search.key"));
-
-        return azureCognitiveSearchMemory;
+        return properties.getProperty(key);
     }
 
     public static Kernel kernelWithEmbedding(boolean withAzureCognitiveSearchMemory) throws ConfigurationException, IOException {
@@ -72,7 +67,7 @@ public class KernelUtils {
         }
         return SKBuilders.kernel()
                 .withDefaultAIService(textEmbeddingGenerationService)
-                .withMemory(azureCognitiveSearchMemory())
+                .withMemoryStorage(azureCognitiveSearchMemory())
                 .build();
 
     }
