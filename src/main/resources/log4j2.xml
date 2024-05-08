@@ -13,9 +13,12 @@
     <Logger name="io.netty" level="warn">
       <AppenderRef ref="Console"/>
     </Logger>
-    <!--<Root level="debug">-->
+    <Logger name="soham.sksamples" level="debug">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <!--<Root level="debug">
     <Root level="debug">
       <AppenderRef ref="Console"/>
-    </Root>
+    </Root>-->
   </Loggers>
 </Configuration>

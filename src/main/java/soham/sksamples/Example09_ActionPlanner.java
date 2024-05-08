@@ -6,6 +6,7 @@ import com.microsoft.semantickernel.planner.actionplanner.ActionPlanner;
 import com.microsoft.semantickernel.planner.actionplanner.Plan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import soham.sksamples.skill.SearchTool;
 
 import java.io.IOException;
 
@@ -25,19 +26,26 @@ public class Example09_ActionPlanner {
             kernel.importSkillFromDirectory("WriterSkill", "src/main/resources/Skills", "WriterSkill");
             kernel.importSkillFromDirectory("SummarizeSkill", "src/main/resources/Skills", "SummarizeSkill");
             kernel.importSkillFromDirectory("DesignThinkingSkill", "src/main/resources/Skills", "DesignThinkingSkill");
-
+            kernel.importSkill(new SearchTool(), "Plugin to search policies related to flight booking update, cancellation");
             log.debug("== Create a Planner using the kernel ==");
             ActionPlanner planner = new ActionPlanner(kernel, null);
-
+            noplanner(planner);
             log.debug("== Example 1 : use Summarizer and Translator skills ==");
           //  translate(planner);
             log.debug("== Example 2 : use Rewrite skill ==");
-            rewriteInAStyle(planner);
+          //  rewriteInAStyle(planner);
             log.debug("== Example 3 : use DesignThinking skill and compose an email ==");
           //  designThinking(planner);
-        } catch (ConfigurationException | IOException e) {
-            log.error("Problem in paradise", e);
+            } catch (ConfigurationException | IOException e) {
+                log.error("Problem in paradise", e);
+            }
         }
+
+    private static void noplanner(ActionPlanner planner) {
+        log.debug("== Run kernel with Planner ==");
+        String goal = "execute a task, if no proper functions found, don't do anything";
+        Plan result = planner.createPlanAsync(goal).block();
+        printResult(result, "what is the flight cancellation policy");
     }
 
     private static void designThinking(ActionPlanner planner) {
