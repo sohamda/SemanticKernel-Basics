@@ -3,7 +3,7 @@ Code examples of Semantic Kernel with Java SDK (v1.0.1)
 
 ## Pre reqs to run the samples
 1. Create [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) resource in Azure portal and deploy 'gpt-x' models there OR use an OpenAI key.
-2. Rename ````src/main/resources/conf.properties.example```` to ````src/main/resources/conf.properties```` and update it with the details from Step #2 and #3. 
+2. Rename ````src/main/resources/conf.properties.example```` to ````src/main/resources/conf.properties```` and update it with the details. 
 
 ## Samples
 1. ````Example01_InlineFunction.class```` > Demonstrates, how to initialize a Kernel and use an Inline function with Azure Open AI(AOAI).
