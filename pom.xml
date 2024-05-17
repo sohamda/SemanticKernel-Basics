@@ -15,7 +15,7 @@
         <version.maven.compiler.plugin>3.11.0</version.maven.compiler.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Semantic Kernel -->
-        <version.semantic-kernel>0.2.13-alpha</version.semantic-kernel>
+        <version.semantic-kernel>1.0.1</version.semantic-kernel>
         <!-- Other -->
         <version.log4j2>2.20.0</version.log4j2>
     </properties>
@@ -23,27 +23,12 @@
     <dependencies>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-core</artifactId>
+            <artifactId>semantickernel-api</artifactId>
             <version>${version.semantic-kernel}</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-planners</artifactId>
-            <version>${version.semantic-kernel}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-connectors-ai-openai</artifactId>
-            <version>${version.semantic-kernel}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-connectors-memory-azurecognitivesearch</artifactId>
-            <version>${version.semantic-kernel}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-plugin-core</artifactId>
+            <artifactId>semantickernel-aiservices-openai</artifactId>
             <version>${version.semantic-kernel}</version>
         </dependency>
         <dependency>
