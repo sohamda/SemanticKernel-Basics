@@ -1,5 +1,3 @@
 client.azureopenai.key=
 client.azureopenai.endpoint=
 client.azureopenai.deploymentname=
-azure.congnitive.search.endpoint=
-azure.congnitive.search.key=
