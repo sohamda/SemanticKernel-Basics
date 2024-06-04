@@ -53,7 +53,11 @@ public class KernelUtils {
                 .withOpenAIAsyncClient(client)
                 .withModelId(modelName)
                 .build();
-
+        if(kernelPlugin == null) {
+            return Kernel.builder()
+                    .withAIService(ChatCompletionService.class, chatCompletion)
+                    .build();
+        }
         return Kernel.builder()
                 .withAIService(ChatCompletionService.class, chatCompletion)
                 .withPlugin(kernelPlugin)

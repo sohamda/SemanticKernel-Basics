@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss} %-5level %c{1.} - %msg%n"/>
+    </Console>
+  </Appenders>
   <Loggers>
     <Logger name="soham.sksamples" level="debug"/>
-    <Logger name="com.microsoft.semantickernel" level="debug"/>
+    <Logger name="com.microsoft.semantickernel" level="debug">
+      <AppenderRef ref="Console"/>
+    </Logger>
   </Loggers>
 </Configuration>
