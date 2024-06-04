@@ -1,5 +1,5 @@
 # SemanticKernel-Basics
-Code examples of Semantic Kernel with Java SDK (v1.0.1)
+Code examples of Semantic Kernel with Java SDK (v1.1.5)
 
 ## Pre reqs to run the samples
 1. Create [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) resource in Azure portal and deploy 'gpt-x' models there OR use an OpenAI key.
