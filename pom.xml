@@ -15,7 +15,7 @@
         <version.maven.compiler.plugin>3.11.0</version.maven.compiler.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Semantic Kernel -->
-        <version.semantic-kernel>1.1.5</version.semantic-kernel>
+        <version.semantic-kernel>1.3.0</version.semantic-kernel>
         <!-- Other -->
         <version.log4j2>2.20.0</version.log4j2>
     </properties>
@@ -32,6 +32,11 @@
             <version>${version.semantic-kernel}</version>
         </dependency>
         <dependency>
+            <groupId>com.microsoft.semantic-kernel</groupId>
+            <artifactId>semantickernel-experimental</artifactId>
+            <version>${version.semantic-kernel}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${version.log4j2}</version>
@@ -40,6 +45,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>${version.log4j2}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-json</artifactId>
+            <version>1.3.0</version>
         </dependency>
     </dependencies>
 

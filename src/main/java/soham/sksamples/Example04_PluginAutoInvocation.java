@@ -4,6 +4,7 @@ import com.azure.ai.openai.OpenAIAsyncClient;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.orchestration.InvocationContext;
+import com.microsoft.semantickernel.orchestration.InvocationReturnMode;
 import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
 import com.microsoft.semantickernel.plugin.KernelPlugin;
 import com.microsoft.semantickernel.plugin.KernelPluginFactory;
@@ -33,6 +34,7 @@ public class Example04_PluginAutoInvocation {
         ChatCompletionService chatCompletion = OpenAIChatCompletion.builder()
                 .withOpenAIAsyncClient(client)
                 .withModelId(modelName)
+                .withDeploymentName(modelName)
                 .build();
 
         KernelPlugin summarize = KernelPluginFactory
@@ -56,9 +58,10 @@ public class Example04_PluginAutoInvocation {
 
         InvocationContext invocationContext = InvocationContext.builder()
                 .withToolCallBehavior(ToolCallBehavior.allowAllKernelFunctions(true))
+                .withReturnMode(InvocationReturnMode.LAST_MESSAGE_ONLY)
                 .build();
 
-       /* invokeFunctionsAutomatically("""
+        /*invokeFunctionsAutomatically("""
                 Apply Design Thinking to the following call transcript >
                 """ + CallTranscript, kernel, chatCompletion, invocationContext);
 

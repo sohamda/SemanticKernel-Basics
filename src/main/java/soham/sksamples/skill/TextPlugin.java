@@ -13,7 +13,7 @@ public class TextPlugin {
         return text.toUpperCase(Locale.ROOT);
     }
 
-    @DefineKernelFunction(description = "Change all string chars to lowercase", name = "lowercase")
+    @DefineKernelFunction(description = "Change all string chars to lowercase", name = "lowercase", returnType = "String")
     public String lowercase(
             @KernelFunctionParameter(name = "text", description = "Text to lowercase") String text) {
         return text.toLowerCase(Locale.ROOT);

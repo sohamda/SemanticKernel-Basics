@@ -1,3 +1,11 @@
 client.azureopenai.key=
 client.azureopenai.endpoint=
 client.azureopenai.deploymentname=
+
+
+client.azureopenai.embedding.model.name=
+client.azureopenai.embedding.model.dimension=
+
+client.azure.ai.search.endpoint=
+client.azure.ai.search.key=
+client.azure.ai.search.index.name=

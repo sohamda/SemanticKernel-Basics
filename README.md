@@ -1,5 +1,5 @@
 # SemanticKernel-Basics
-Code examples of Semantic Kernel with Java SDK (v1.1.5)
+Code examples of Semantic Kernel with Java SDK (v1.3.0)
 
 ## Pre reqs to run the samples
 1. Create [Azure Open AI](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/create-resource?pivots=web-portal) resource in Azure portal and deploy 'gpt-x' models there OR use an OpenAI key.
@@ -11,7 +11,7 @@ Code examples of Semantic Kernel with Java SDK (v1.1.5)
 3. ````Example03_KernelPluginAsClass.class```` > Demonstrates, how to use a Plugin defined as class.
 4. ````Example04_PluginAutoInvocation.class```` > Demonstrates, how to let Kernel auto-invoke Plugins and Functions depending on the task given.
 5. ````Example05_CustomObjectFromPlugin.class```` > Demonstrates, how to configure and use custom converters if a function returns or accepts custom object.
-
+6. ````Example06_Example06_AzureAISearch.class```` > Demonstrates, how to use AI Search as vector db for searches. (uses an existing index in Azure Search)
 ## Documentation/Further reading
 
 1. [Semantic Kernel Official Docs](https://learn.microsoft.com/en-us/semantic-kernel/overview/)
