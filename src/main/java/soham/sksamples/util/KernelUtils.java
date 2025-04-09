@@ -1,5 +1,9 @@
 package soham.sksamples.util;
 
+import com.azure.ai.contentsafety.BlocklistClient;
+import com.azure.ai.contentsafety.BlocklistClientBuilder;
+import com.azure.ai.contentsafety.ContentSafetyClient;
+import com.azure.ai.contentsafety.ContentSafetyClientBuilder;
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
@@ -18,6 +22,8 @@ public class KernelUtils {
     public static String ENDPOINT = "client.azureopenai.endpoint";
     public static String API_KEY = "client.azureopenai.key";
     public static String MODEL_NAME = "client.azureopenai.deploymentname";
+    public static String CONTENT_SAFETY_ENDPOINT = "client.azure.content.safety.endpoint";
+    public static String CONTENT_SAFETY_KEY = "client.azure.content.safety.key";
 
     public static OpenAIAsyncClient openAIAsyncClient() throws IOException {
         String endpoint = getProperty(ENDPOINT);
@@ -63,6 +69,27 @@ public class KernelUtils {
                 .withPlugin(kernelPlugin)
                 .build();
     }
+
+    public static ContentSafetyClient getContentSafetyClient() throws IOException {
+        String endpoint = getProperty(CONTENT_SAFETY_ENDPOINT);
+        String key = getProperty(CONTENT_SAFETY_KEY);
+
+        // Create a Content Safety client
+        return new ContentSafetyClientBuilder()
+                .credential(new KeyCredential(key))
+                .endpoint(endpoint).buildClient();
+    }
+
+    public static BlocklistClient getBlocklistClient() throws IOException {
+        String endpoint = getProperty(CONTENT_SAFETY_ENDPOINT);
+        String key = getProperty(CONTENT_SAFETY_KEY);
+
+        // Create a Content Safety client
+        return new BlocklistClientBuilder()
+                .credential(new KeyCredential(key))
+                .endpoint(endpoint).buildClient();
+    }
+
 
 
     public static String getProperty(String key) throws IOException {
